@@ -132,7 +132,6 @@ async function seedDatabase() {
             imageUrl: service.imageUrl,
         },
     });
-    console.log(barbershop);
       }
 
       barbershops.push(barbershop);
