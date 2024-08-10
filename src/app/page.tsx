@@ -4,10 +4,15 @@ import { Button } from "./_components/ui/button"
 import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
+import { db } from "./_lib/prisma"
 import { Badge } from "./_components/ui/badge"
 import { Avatar } from "./_components/ui/avatar"
 import { AvatarImage } from "@radix-ui/react-avatar"
-const Home = () => {
+import BarbershopItem from "./_components/barbershop-item"
+
+const Home = async () => {
+  const barbershops = await db.barbershop.findMany({})
+  console.log({ barbershops })
   return (
     <div>
       <Header />
@@ -28,7 +33,10 @@ const Home = () => {
             className="rounded-xl object-center"
           />
         </div>
-        <Card className="mt-6">
+        <h2 className="text-gray- 400 mb-3 mt-6 text-xs font-bold uppercase">
+          Agendamentos
+        </h2>
+        <Card>
           <CardContent className="flex justify-between p-0">
             <div className="flex flex-col gap-2 py-5 pl-5">
               <Badge className="w-fit">Confirmado</Badge>
@@ -40,13 +48,21 @@ const Home = () => {
                 <p className="text-sm">Barbearia The Brothers</p>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center gap-2 border-l-2 border-solid pr-5">
+            <div className="flex flex-col items-center justify-center gap-2 border-l-2 border-solid pl-20 pr-10">
               <p className="text-sm">Agosto</p>
               <p className="text-2xl">05</p>
               <p className="text-sm">20:20</p>
             </div>
           </CardContent>
         </Card>
+        <h2 className="text-gray- 400 mb-3 mt-6 text-xs font-bold uppercase">
+          Recomendados
+        </h2>
+        <div className="flex flex-row gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
     </div>
   )
