@@ -5,10 +5,9 @@ import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
 import { db } from "./_lib/prisma"
-import { Badge } from "./_components/ui/badge"
-import { Avatar } from "./_components/ui/avatar"
-import { AvatarImage } from "@radix-ui/react-avatar"
 import BarbershopItem from "./_components/barbershop-item"
+import { quickSearchOption } from "./_components/_constants/search"
+import BookingItem from "./_components/booking-item"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -27,45 +26,17 @@ const Home = async () => {
           </Button>
         </div>
         <div className="flex gap-3 overflow-auto pt-6 [&::-webkit-scrollbar]:hidden">
-          <Button className="gap-3" variant="secondary">
-            <Image src="/cabelo.svg" width={40} height={16} alt="Cabelo" />
-            Cabelo
-          </Button>
-          <Button className="gap-3" variant="secondary">
-            <Image src="/barba.svg" width={40} height={16} alt="Barba" />
-            Barba
-          </Button>
-          <Button className="gap-3" variant="secondary">
-            <Image
-              src="/acabamento.svg"
-              width={40}
-              height={16}
-              alt="Acabamento"
-            />
-            Acabamento
-          </Button>
-          <Button className="gap-3" variant="secondary">
-            <Image
-              src="/hidratacao.svg"
-              width={40}
-              height={16}
-              alt="Hidratação"
-            />
-            hidratação
-          </Button>
-          <Button className="gap-3" variant="secondary">
-            <Image
-              src="/sobrancelha.svg"
-              width={40}
-              height={16}
-              alt="Sobrancelha"
-            />
-            Sobrancelha
-          </Button>
-          <Button className="gap-3" variant="secondary">
-            <Image src="/massagem.svg" width={40} height={16} alt="Massagem" />
-            Massagem
-          </Button>
+          {quickSearchOption.map((option) => (
+            <Button key={option.title} className="gap-3" variant="secondary">
+              <Image
+                src={option.imageUrl}
+                width={40}
+                height={16}
+                alt={option.title}
+              />
+              {option.title}
+            </Button>
+          ))}
         </div>
         <div className="relative mt-6 h-[250px] w-full">
           <Image
@@ -75,28 +46,8 @@ const Home = async () => {
             className="rounded-xl object-center"
           />
         </div>
-        <h2 className="text-gray- 400 mb-3 mt-6 text-xs font-bold uppercase">
-          Agendamentos
-        </h2>
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-              <div className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
-                </Avatar>
-                <p className="text-sm">Barbearia The Brothers</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center justify-center gap-2 border-l-2 border-solid pl-20 pr-10">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20:20</p>
-            </div>
-          </CardContent>
-        </Card>
+        <BookingItem />
+
         <h2 className="text-gray- 400 mb-3 mt-6 text-xs font-bold uppercase">
           Recomendados
         </h2>
