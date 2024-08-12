@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Button } from "@/app/_components/ui/button"
 import { StarIcon } from "lucide-react"
 import { notFound } from "next/navigation"
+import ServiceItem from "@/app/_components/service-item"
 
 interface BarbershopPageProps {
   params: {
@@ -17,11 +18,16 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
     where: {
       id: params.id,
     },
+    include: {
+      services: true,
+    },
   })
 
   if (!barbershop) {
     return notFound()
   }
+  console.log(barbershop.services)
+
   return (
     <div>
       <div className="relative h-[250px] w-full">
@@ -66,8 +72,15 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         <h2 className="text-xs font-bold uppercase text-gray-400">Sobre Nós</h2>
         <p className="text-justify text-sm">{barbershop?.description}</p>
       </div>
+      <div className="mb-3 p-5">
+        <h2 className="text-xs font-bold uppercase text-gray-400">Serviços</h2>
+        <div className="space-y-3 p-5">
+          {barbershop.services.map((service) => (
+            <ServiceItem key={service.id} service={service} />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
-
 export default BarbershopPage
