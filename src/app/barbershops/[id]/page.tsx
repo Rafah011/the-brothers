@@ -8,6 +8,8 @@ import { notFound } from "next/navigation"
 import ServiceItem from "@/app/_components/service-item"
 import Footer from "@/app/_components/footer"
 import PhoneItem from "@/app/_components/phone-item"
+import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet"
+import Sidebar from "@/app/_components/sidebar"
 
 interface BarbershopPageProps {
   params: {
@@ -49,14 +51,20 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
             <ChevronLeftIcon />
           </Link>
         </Button>
-        <Button
-          size="icon"
-          variant="secondary"
-          className="absolute right-4 top-4"
-        >
-          <MenuIcon />
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              size="icon"
+              variant="outline"
+              className="absolute right-4 top-4"
+            >
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <Sidebar />
+        </Sheet>
       </div>
+
       <div className="border-b border-solid p-5">
         <h1 className="mb-3 text-xl font-bold">{barbershop?.name}</h1>
         <div className="mb-2 flex items-center gap-2">
@@ -64,15 +72,18 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
 
           <p className="text-sm font-semibold">{barbershop?.address}</p>
         </div>
+
         <div className="flex items-center gap-2">
           <StarIcon size={18} className="fill-primary text-primary" />
           <p className="text-xs font-semibold">5.0 (889 avaliações)</p>
         </div>
       </div>
+
       <div className="space-y-3 border-b border-solid p-5">
         <h2 className="text-xs font-bold uppercase text-gray-400">Sobre Nós</h2>
         <p className="text-justify text-sm">{barbershop?.description}</p>
       </div>
+
       <div className="mb-3 p-5">
         <h2 className="text-xs font-bold uppercase text-gray-400">Serviços</h2>
         <div className="space-y-3 border-b border-solid p-5">
@@ -81,12 +92,14 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
           ))}
         </div>
       </div>
+
       <div className="space-y-3 p-5">
         <h2 className="text-xs font-bold uppercase text-gray-400">Contatos</h2>
         {barbershop.phones.map((phone) => (
           <PhoneItem key={phone} phone={phone} />
         ))}
       </div>
+
       <Footer />
     </div>
   )
