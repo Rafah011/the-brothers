@@ -47,7 +47,6 @@ const Home = async () => {
           />
         </div>
         <BookingItem />
-
         <h2 className="text-gray- 400 mb-3 mt-6 text-xs font-bold uppercase">
           Recomendados
         </h2>

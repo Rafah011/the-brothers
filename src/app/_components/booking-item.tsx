@@ -1,11 +1,11 @@
 import { Card, CardContent } from "./ui/card"
-import { Badge } from "lucide-react"
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar"
+import { Badge } from "./ui/badge"
+import { Avatar, AvatarImage } from "./ui/avatar"
 
 const BookingItem = () => {
   return (
     <>
-      <h2 className="text-gray- 400 mb-3 mt-6 text-xs font-bold uppercase">
+      <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
         Agendamentos
       </h2>
       <Card>
