@@ -1,11 +1,19 @@
 import { SheetContent, SheetHeader, SheetClose, SheetTitle } from "./ui/sheet"
 import Image from "next/image"
-import { LogOutIcon } from "lucide-react"
+import { LogInIcon, LogOutIcon } from "lucide-react"
 import Link from "next/link"
 import { CalendarIcon, HomeIcon } from "lucide-react"
 import { Button } from "./ui/button"
 import { quickSearchOption } from "./_constants/search"
-import { Avatar, AvatarImage } from "./ui/avatar"
+//import { Avatar, AvatarImage } from "./ui/avatar"
+import {
+  DialogHeader,
+  DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "./ui/dialog"
 
 const Sidebar = () => {
   return (
@@ -13,7 +21,31 @@ const Sidebar = () => {
       <SheetHeader>
         <SheetTitle className="text-left">Menu</SheetTitle>
       </SheetHeader>
-      <div className="flex items-center gap-3 border-b border-solid py-5">
+      <div className="flex items-center justify-between gap-3 border-b border-solid py-5">
+        <h2 className="text-lg font-bold">Olá, faça seu login!</h2>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="icon">
+              <LogInIcon size="18" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="w-[90%]">
+            <DialogHeader>
+              <DialogTitle>Faça login na plataforma</DialogTitle>
+              <DialogDescription></DialogDescription>
+            </DialogHeader>
+            <Button variant="outline" className="gap-2 font-bold">
+              <Image
+                width={18}
+                height={18}
+                alt="Fazer login com o google"
+                src="/google.svg"
+              />
+              Google
+            </Button>
+          </DialogContent>
+        </Dialog>
+        {/*
         <Avatar>
           <AvatarImage
             src={
@@ -24,7 +56,7 @@ const Sidebar = () => {
         <div>
           <p className="font-bold">Rafael Oliveira</p>
           <p className="text-xs">RafaelOliveira.io</p>
-        </div>
+        </div>*/}
       </div>
       <div className="flex flex-col gap-2 border-b border-solid p-5">
         <SheetClose asChild>
